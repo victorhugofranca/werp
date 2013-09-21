@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cars</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="listForm">
+
+		<p:dataTable id="produtosDataTableId" var="produto"
+			value="#{produtoListAction.instances}" paginatorPosition="bottom"
+			paginator="true" rows="10" lazy="true">
+
+			<p:columns value="#{produtoListAction.columns}" var="column"
+				columnIndexVar="colIndex">
+				<f:facet name="header">  
+                		#{column.header}  
+            		</f:facet>
+
+				<p:outputLabel value="#{produto[column.property]}" />
+
+			</p:columns>
+
+			<p:column>
+				<p:commandButton icon="ui-icon-search"
+					actionListener="#{orcamentoFormAction.selectProductFromDialog(produto)}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+</h:body>
+
+</html>
