@@ -2,20 +2,17 @@ package br.com.sigen.werp.app.vendas.orcamento;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 
 import br.com.sigen.werp.app.cadastro.produto.Produto;
 
@@ -25,6 +22,9 @@ public class OrcamentoFormAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private OrcamentoBusiness orcamentoBusiness;
+
 	@Inject
 	private Conversation conversation;
 
@@ -33,9 +33,6 @@ public class OrcamentoFormAction implements Serializable {
 	private List<OrcamentoItem> itens;
 
 	private String codigoProduto;
-
-	@PersistenceContext
-	private EntityManager entityManager;
 
 	public OrcamentoFormAction() {
 		instance = new Orcamento();
@@ -58,29 +55,21 @@ public class OrcamentoFormAction implements Serializable {
 		}
 	}
 
-	public String edit() {
-		entityManager.merge(instance);
+	public String save() {
+		orcamentoBusiness.save(instance);
+		endConversation();
 		return "orcamentoList";
-	}
-
-	public void pesquisarProdutos() {
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put("modal", true);
-		options.put("draggable", false);
-		options.put("resizable", false);
-
-		RequestContext.getCurrentInstance().openDialog(
-				"/cadastro/produto/produtoSelectDialog", options, null);
-	}
-
-	public void selectProductFromDialog(Produto produto) {
-		RequestContext.getCurrentInstance().closeDialog(produto);
 	}
 
 	public void addItem() {
 		OrcamentoItem orcamentoItem = new OrcamentoItem();
 		orcamentoItem.setIdOrcamentoItem(Integer.valueOf(codigoProduto));
 		itens.add(orcamentoItem);
+	}
+
+	public void onProductChosen(SelectEvent event) {
+		Produto produto = (Produto) event.getObject();
+		setCodigoProduto(produto.getCodigo());
 	}
 
 	protected Logger getLogger(Class<?> clazz) {

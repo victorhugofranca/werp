@@ -17,23 +17,45 @@
 
 		<h:form id="orcamentoForm">
 
-			<p:outputLabel id="produtoFormId" value="Produto" />
-			<p:inputText id="inputCodigoProdutoId"
-				value="#{orcamentoFormAction.codigoProduto}" />
+			<p:panelGrid id="panelGridId" columns="1">
+				<p:panelGrid id="panelGridMaster" columns="2">
+					<p:outputLabel id="orcamentoCodigoId" value="Código" />
+					<p:inputText id="inputCodigoOrcamentoId"
+						value="#{orcamentoFormAction.instance.codigo}" />
+				</p:panelGrid>
 
-			<p:commandButton value="Pesquisar Produto" id="searchProductId"
-				actionListener="#{orcamentoFormAction.pesquisarProdutos}" />
+				<p:panelGrid id="panelGridDetailForm" columns="2">
+					<p:outputLabel id="produtoCodigoId" value="Produto" />
+					<p:inputText id="inputCodigoProdutoId"
+						value="#{orcamentoFormAction.codigoProduto}" />
+				</p:panelGrid>
 
-			<p:commandButton value="Add" id="commandButtonAddItemId"
-				update="itensDataTableId"
-				actionListener="#{orcamentoFormAction.addItem()}" />
+				<p:panelGrid id="panelGridDetailButtonsForm" columns="2">
+					<p:commandButton value="Pesquisar Produto" id="searchProductId"
+						actionListener="#{produtoSelectDialogAction.pesquisarProdutos}">
+						<p:ajax event="dialogReturn"
+							listener="#{orcamentoFormAction.onProductChosen}"
+							update="inputCodigoProdutoId" />
+					</p:commandButton>
 
-			<p:dataTable id="itensDataTableId" var="item"
-				value="#{orcamentoFormAction.itens}">
-				<p:column headerText="Id">
-					<h:outputText value="#{item.idOrcamentoItem}" />
-				</p:column>
-			</p:dataTable>
+					<p:commandButton value="Add" id="commandButtonAddItemId"
+						update="itensDataTableId"
+						actionListener="#{orcamentoFormAction.addItem()}" />
+				</p:panelGrid>
+
+				<p:panelGrid id="panelGridDetailTable" columns="1">
+					<p:dataTable id="itensDataTableId" var="item"
+						value="#{orcamentoFormAction.itens}">
+						<p:column headerText="Id">
+							<h:outputText value="#{item.idOrcamentoItem}" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+
+				<p:commandButton value="OK" action="#{orcamentoFormAction.save}"
+					id="commandButtonSaveId" />
+
+			</p:panelGrid>
 
 		</h:form>
 
