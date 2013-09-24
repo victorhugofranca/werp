@@ -11,11 +11,11 @@ public class OrcamentoBusiness {
 	private EntityManager entityManager;
 
 	public void save(Orcamento orcamento) {
-
 		if (orcamento.getIdOrcamento() != null) {
 			entityManager.merge(orcamento);
 		} else {
 			entityManager.persist(orcamento);
 		}
 	}
+
 }

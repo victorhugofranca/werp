@@ -9,5 +9,16 @@
 
 	<h:form id="menuFormId">
 		<p:menubar model="#{menuController.menuModel}" id="menuBarFormId" />
+
+		<p:dock position="top">
+			<p:menuitem value="Products" icon="/resources/Box-icon.png"
+				url="/cadastro/produto/produtoList.faces" />
+			<p:menuitem value="Clients" icon="/resources/Clients-icon.png"
+				url="/cadastro/cliente/clienteList.faces" />
+			<p:menuitem value="Vendors" icon="/resources/Provider-icon.png"
+				url="/cadastro/fornecedor/fornecedorList.faces" />
+			<p:menuitem value="Quotations" icon="/resources/Invoice-icon.png"
+				url="/vendas/orcamento/orcamentoList.faces" />
+		</p:dock>
 	</h:form>
 </ui:composition>
