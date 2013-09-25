@@ -1,67 +1,45 @@
 package br.com.sigen.werp.app.websocket;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.jms.JMSException;
-import javax.jms.Message;
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-@Named
-@ServerEndpoint("/websocket")
+@ServerEndpoint("/chat")
 public class WebSocketEndpoint implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// this object will hold all WebSocket sessions connected to this WebSocket
-	// server endpoint (per JVM)
-	private static final Set<Session> sessions = Collections
-			.synchronizedSet(new HashSet<Session>());
-
-	private QueueSenderSessionBean senderBean;
-
-	@Inject
-	public WebSocketEndpoint(QueueSenderSessionBean sb) {
-		this.senderBean = sb;
-	}
+	private static final Logger LOGGER = Logger
+			.getLogger(WebSocketEndpoint.class.getName());
 
 	@OnOpen
-	public void onOpen(final Session session) {
-		sessions.add(session);
+	public void onOpen(Session session) {
+		LOGGER.log(Level.INFO, "New connection with client: {0}",
+				session.getId());
 	}
 
 	@OnMessage
-	public void onMessage(final String message, final Session client) {
-		senderBean.sendMessage(message);
+	public String onMessage(String message, Session session) {
+		LOGGER.log(Level.INFO, "New message from Client [{0}]: {1}",
+				new Object[] { session.getId(), message });
+		return "Server received [" + message + "]";
 	}
 
 	@OnClose
-	public void onClose(final Session session) {
-		sessions.remove(session);
+	public void onClose(Session session) {
+		LOGGER.log(Level.INFO, "Close connection for client: {0}",
+				session.getId());
 	}
 
-	public void onJMSMessage(@Observes @WSJMSMessage Message msg) {
-		try {
-			for (Session s : sessions) {
-				s.getBasicRemote().sendText(
-						"message from JMS: " + msg.getBody(String.class));
-			}
-		} catch (IOException | JMSException ex) {
-			Logger.getLogger(WebSocketEndpoint.class.getName()).log(
-					Level.SEVERE, null, ex);
-		}
+	@OnError
+	public void onError(Throwable exception, Session session) {
+		LOGGER.log(Level.INFO, "Error for client: {0}", session.getId());
 	}
-
 }

@@ -41,6 +41,10 @@ public class Produto implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SimNao ativo;
 
+	public Produto() {
+		ativo = SimNao.S;
+	}
+
 	public Integer getIdProduto() {
 		return idProduto;
 	}

@@ -22,21 +22,17 @@
 				value="#{orcamentoListAction.instances}" paginatorPosition="bottom"
 				paginator="true" rows="10" lazy="true">
 
-				<p:column id="editColumnId">
-					<p:commandButton value="Editar" action="orcamentoForm"
-						id="editCommandButtonId">
-						<f:setPropertyActionListener
-							target="#{orcamentoFormAction.instance}" value="#{orcamento}" />
-					</p:commandButton>
-				</p:column>
-
 				<p:columns value="#{orcamentoListAction.columns}" var="column"
 					columnIndexVar="colIndex">
 					<f:facet name="header">  
                 		#{column.header}  
             		</f:facet>
 
-					<p:outputLabel value="#{orcamento[column.property]}" />
+					<p:commandLink action="orcamentoForm" id="editCommandButtonId"
+						value="#{orcamento[column.property]}">
+						<f:setPropertyActionListener
+							target="#{orcamentoFormAction.instance}" value="#{orcamento}" />
+					</p:commandLink>
 
 				</p:columns>
 

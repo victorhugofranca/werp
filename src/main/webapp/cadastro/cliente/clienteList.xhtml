@@ -22,21 +22,17 @@
 				value="#{clienteListAction.instances}" paginatorPosition="bottom"
 				paginator="true" rows="10" lazy="true">
 
-				<p:column id="editColumnId">
-					<p:commandButton value="Editar" action="clienteForm"
-						id="editCommandButtonId">
-						<f:setPropertyActionListener
-							target="#{clienteFormAction.instance}" value="#{cliente}" />
-					</p:commandButton>
-				</p:column>
-
 				<p:columns value="#{clienteListAction.columns}" var="column"
 					columnIndexVar="colIndex">
 					<f:facet name="header">  
                 		#{column.header}  
             		</f:facet>
 
-					<p:outputLabel value="#{cliente[column.property]}" />
+					<p:commandLink action="clienteForm" id="editCommandButtonId"
+						value="#{cliente[column.property]}">
+						<f:setPropertyActionListener
+							target="#{clienteFormAction.instance}" value="#{cliente}" />
+					</p:commandLink>
 
 				</p:columns>
 

@@ -22,21 +22,17 @@
 				value="#{produtoListAction.instances}" paginatorPosition="bottom"
 				paginator="true" rows="10" lazy="true">
 
-				<p:column id="editColumnId">
-					<p:commandButton value="Editar" action="produtoForm"
-						id="editCommandButtonId">
-						<f:setPropertyActionListener
-							target="#{produtoFormAction.instance}" value="#{produto}" />
-					</p:commandButton>
-				</p:column>
-
 				<p:columns value="#{produtoListAction.columns}" var="column"
 					columnIndexVar="colIndex">
 					<f:facet name="header">  
                 		#{column.header}  
             		</f:facet>
 
-					<p:outputLabel value="#{produto[column.property]}" />
+					<p:commandLink action="produtoForm" id="editCommandButtonId"
+						value="#{produto[column.property]}">
+						<f:setPropertyActionListener
+							target="#{produtoFormAction.instance}" value="#{produto}" />
+					</p:commandLink>
 
 				</p:columns>
 

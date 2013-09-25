@@ -2,7 +2,7 @@ package br.com.sigen.werp.app;
 
 public enum SimNao {
 
-	S("Sim"), N("Nao");
+	S("Sim"), N("Não");
 
 	private String valor;
 
