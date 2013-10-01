@@ -7,6 +7,26 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<script>
+		var websocket;
+
+		if (websocket == null)
+			websocket = new WebSocket("ws://localhost:8080/werp-app/websocket");
+		else
+			atualizarPainelAcoes();
+
+		function atualizarPainelAcoes() {
+			websocket.send('atualizar');
+		}
+
+		websocket.onmessage = function(evt) {
+			var p = document.createElement("p");
+			p.innerHTML = evt.data;
+			var container = document.getElementById("container");
+			container.appendChild(p);
+		}
+	</script>
 </h:head>
 
 <h:body

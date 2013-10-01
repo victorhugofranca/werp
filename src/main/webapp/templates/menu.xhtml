@@ -10,13 +10,22 @@
 	<h:form id="menuFormId">
 		<p:dock position="bottom">
 			<p:menuitem value="Products" icon="/resources/Box-icon.png"
-				url="/cadastro/produto/produtoList.faces" />
+				url="/modulo/cadastro/produto/produtoList.faces" />
+
 			<p:menuitem value="Clients" icon="/resources/Clients-icon.png"
-				url="/cadastro/cliente/clienteList.faces" />
+				url="/modulo/cadastro/cliente/clienteList.faces" />
+
 			<p:menuitem value="Vendors" icon="/resources/Provider-icon.png"
-				url="/cadastro/fornecedor/fornecedorList.faces" />
+				url="/modulo/cadastro/fornecedor/fornecedorList.faces" />
+
 			<p:menuitem value="Quotations" icon="/resources/Invoice-icon.png"
-				url="/vendas/orcamento/orcamentoList.faces" />
+				url="/modulo/vendas/orcamento/orcamentoList.faces" />
+
+			<p:menuitem value="Invoice" icon="/resources/Invoice-icon.png"
+				url="/modulo/vendas/pedido/pedidoList.faces" />
+
+			<p:menuitem value="Receivable" icon="/resources/Invoice-icon.png"
+				url="/modulo/financeiro/titulo/receber/tituloReceberList.faces" />
 		</p:dock>
 	</h:form>
 </ui:composition>
