@@ -26,6 +26,12 @@ public class TituloReceberBusiness {
 		}
 	}
 
+	@Interceptors({ SecurityInterceptor.class, BroadcastInterceptor.class })
+	public void delete(Object entity) {
+		entity = entityManager.merge(entity);
+		entityManager.remove(entity);
+	}
+
 	public List<TituloReceber> find(Integer pageIndex, Integer pageSize) {
 		return entityManager
 				.createQuery(

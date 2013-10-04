@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named("tituloReceberFormAction")
@@ -13,13 +14,13 @@ public class TituloReceberFormAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Inject
 	private TituloReceber instance;
 
 	@EJB
 	private TituloReceberBusiness tituloReceberBusiness;
 
 	public TituloReceberFormAction() {
-		instance = new TituloReceber();
 	}
 
 	public String edit() {

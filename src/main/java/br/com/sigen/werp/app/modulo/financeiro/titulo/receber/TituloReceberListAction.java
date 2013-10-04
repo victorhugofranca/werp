@@ -20,6 +20,11 @@ public class TituloReceberListAction extends AbstractListAction<TituloReceber> {
 	private TituloReceberBusiness tituloReceberBusiness;
 
 	@Override
+	public void delete(Object object) {
+		tituloReceberBusiness.delete(object);
+	}
+
+	@Override
 	protected List<TituloReceber> carregarRegistrosParaExibicao(int pageIndex,
 			int pageSize) {
 		return tituloReceberBusiness.find(pageIndex, pageSize);

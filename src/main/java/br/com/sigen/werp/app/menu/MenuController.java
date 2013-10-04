@@ -49,16 +49,28 @@ public class MenuController implements Serializable {
 		submenuCadastros.setId(MENU_ITEM + "CadastrosId");
 
 		submenuCadastros.addElement(createMenuItem("ProdutoId", "Produtos",
-				"/cadastro/produto/produtoList.faces"));
+				"/modulo/cadastro/produto/produtoList.faces"));
+
+		submenuCadastros.addElement(createMenuItem("GrupoProdutoId",
+				"Grupos de Produtos",
+				"/modulo/cadastro/grupoProduto/grupoProdutoList.faces"));
 
 		submenuCadastros.addElement(createMenuItem("ClienteId", "Clientes",
-				"/cadastro/cliente/clienteList.faces"));
+				"/modulo/cadastro/cliente/clienteList.faces"));
 
 		submenuCadastros.addElement(createMenuItem("FornecedorId",
-				"Fornecedores", "/cadastro/fornecedor/fornecedorList.faces"));
+				"Fornecedores",
+				"/modulo/cadastro/fornecedor/fornecedorList.faces"));
 
 		submenuCadastros.addElement(createMenuItem("OrcamentoId", "Orçamentos",
-				"/vendas/orcamento/orcamentoList.faces"));
+				"/modulo/vendas/orcamento/orcamentoList.faces"));
+
+		submenuCadastros.addElement(createMenuItem("PedidoId",
+				"Pedidos de Venda", "/modulo/vendas/pedido/pedidoList.faces"));
+
+		submenuCadastros.addElement(createMenuItem("TituloReceberId",
+				"Títulos à Receber",
+				"/modulo/financeiro/titulo/receber/tituloReceberList.faces"));
 
 		return submenuCadastros;
 	}

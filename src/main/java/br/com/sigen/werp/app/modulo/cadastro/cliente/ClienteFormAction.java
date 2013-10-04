@@ -4,22 +4,23 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named("clienteFormAction")
-@Stateless
+@RequestScoped
 public class ClienteFormAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Inject
 	private Cliente instance;
 
 	@EJB
 	private ClienteBusiness clienteBusiness;
 
 	public ClienteFormAction() {
-		instance = new Cliente();
 	}
 
 	public String edit() {

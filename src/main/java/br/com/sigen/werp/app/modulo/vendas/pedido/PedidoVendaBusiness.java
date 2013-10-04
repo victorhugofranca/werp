@@ -29,6 +29,12 @@ public class PedidoVendaBusiness {
 	}
 
 	@Interceptors({ SecurityInterceptor.class, BroadcastInterceptor.class })
+	public void delete(Object entity) {
+		entity = entityManager.merge(entity);
+		entityManager.remove(entity);
+	}
+
+	@Interceptors({ SecurityInterceptor.class, BroadcastInterceptor.class })
 	public void faturar(PedidoVenda pedidoVenda) {
 		TarefaFaturamentoBuilder tarefaFaturamentoBuilder = new TarefaFaturamentoBasicoBuilder();
 		TarefaFaturamento tarefaFaturamento = tarefaFaturamentoBuilder.build();

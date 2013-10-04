@@ -18,6 +18,11 @@ public class ProdutoListAction extends AbstractListAction<Produto> {
 
 	@EJB
 	private ProdutoBusiness produtoBusiness;
+	
+	@Override
+	public void delete(Object object) {
+		produtoBusiness.delete(object);
+	}
 
 	@Override
 	protected List<Produto> carregarRegistrosParaExibicao(int pageIndex,
@@ -29,6 +34,7 @@ public class ProdutoListAction extends AbstractListAction<Produto> {
 		Map<String, String> columnsMap = new LinkedHashMap<String, String>();
 		columnsMap.put("codigo", "Código");
 		columnsMap.put("descricao", "Descrição");
+		columnsMap.put("preco", "Preço");
 		columnsMap.put("ativo", "Ativo");
 		return columnsMap;
 	}

@@ -25,6 +25,12 @@ public class ClienteBusiness {
 		}
 	}
 
+	@Interceptors({ SecurityInterceptor.class, BroadcastInterceptor.class })
+	public void delete(Object entity) {
+		entity = entityManager.merge(entity);
+		entityManager.remove(entity);
+	}
+
 	public List<Cliente> find(Integer pageIndex, Integer pageSize) {
 		return entityManager
 				.createQuery(

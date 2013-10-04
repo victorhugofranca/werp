@@ -23,6 +23,12 @@
 				value="#{orcamentoListAction.instances}" paginatorPosition="bottom"
 				paginator="true" rows="10" lazy="true">
 
+				<p:column>
+					<p:commandButton icon="ui-icon-circle-minus"
+						action="#{orcamentoListAction.delete(orcamento)}"
+						update="orcamentosDataTableId" />
+				</p:column>
+
 				<p:columns value="#{orcamentoListAction.columns}" var="column"
 					columnIndexVar="colIndex">
 					<f:facet name="header">  
@@ -35,8 +41,19 @@
 						<f:setPropertyActionListener
 							target="#{orcamentoFormAction.instance}" value="#{orcamento}" />
 					</p:commandLink>
-
 				</p:columns>
+				<p:column>
+					<f:facet name="header">  
+                		Cliente  
+            		</f:facet>
+
+					<p:commandLink action="orcamentoForm" id="clienteCommandButtonId"
+						value="#{orcamento.cliente.razaoSocial}"
+						oncomplete="atualizarPainelAcoes();">
+						<f:setPropertyActionListener
+							target="#{orcamentoFormAction.instance}" value="#{orcamento}" />
+					</p:commandLink>
+				</p:column>
 
 			</p:dataTable>
 		</h:form>

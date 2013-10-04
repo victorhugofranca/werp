@@ -10,6 +10,12 @@
 	template="/templates/formTemplate.xhtml">
 
 	<ui:define name="body">
+
+		<f:metadata>
+			<f:event type="javax.faces.event.PreRenderViewEvent"
+				listener="#{produtoFormAction.beginConversation}" />
+		</f:metadata>
+
 		<h:form id="produtoFormId">
 
 			<h:inputHidden value="#{produtoFormAction.instance.idProduto}" />
@@ -27,6 +33,36 @@
 				<p:selectOneButton value="#{produtoFormAction.instance.ativo}">
 					<f:selectItems value="#{produtoFormAction.instance.ativo.values()}" />
 				</p:selectOneButton>
+
+				<p:outputLabel id="fabricanteCodigoId" value="Fabricante" />
+				<p:panelGrid columns="2">
+					<p:inputText id="inputCodigoFabricanteId" readonly="true"
+						value="#{produtoFormAction.instance.fabricante.codigo}" />
+					<p:commandButton value="Pesquisar Fabricante"
+						id="searchFabricanteId"
+						actionListener="#{fabricanteSelectDialogAction.pesquisar}">
+						<p:ajax event="dialogReturn"
+							listener="#{produtoFormAction.onFabricanteChosen}"
+							update="inputCodigoFabricanteId" />
+					</p:commandButton>
+				</p:panelGrid>
+
+				<p:outputLabel id="grupoProdutoCodigoId" value="Grupo do Produto" />
+				<p:panelGrid columns="2">
+					<p:inputText id="inputCodigoGrupoProdutoId" readonly="true"
+						value="#{produtoFormAction.instance.grupoProduto.codigo}" />
+					<p:commandButton value="Pesquisar Grupo de Produto"
+						id="searchGrupoProdutoId"
+						actionListener="#{grupoProdutoSelectDialogAction.pesquisar}">
+						<p:ajax event="dialogReturn"
+							listener="#{produtoFormAction.onGrupoProdutoChosen}"
+							update="inputCodigoGrupoProdutoId" />
+					</p:commandButton>
+				</p:panelGrid>
+
+				<p:outputLabel value="Preço" />
+				<p:inputText value="#{produtoFormAction.instance.preco}"
+					id="inputPrecoId" />
 
 				<p:commandButton value="OK" action="#{produtoFormAction.edit}"
 					id="commandButtonEditId" />

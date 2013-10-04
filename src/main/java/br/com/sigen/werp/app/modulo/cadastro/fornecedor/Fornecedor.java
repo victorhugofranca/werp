@@ -41,6 +41,10 @@ public class Fornecedor implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SimNao ativo;
 
+	public Fornecedor() {
+		ativo = SimNao.S;
+	}
+
 	public Integer getIdFornecedor() {
 		return idFornecedor;
 	}

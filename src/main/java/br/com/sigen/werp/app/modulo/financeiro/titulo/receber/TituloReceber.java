@@ -20,7 +20,7 @@ public class TituloReceber implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_cad_produto")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_fin_titulo_receber")
 	@Basic(optional = false)
 	@Column(name = "id_titulo_receber")
 	private Integer idTituloReceber;

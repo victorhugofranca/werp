@@ -20,6 +20,11 @@ public class FornecedorListAction extends AbstractListAction<Fornecedor> {
 	private FornecedorBusiness fornecedorBusiness;
 
 	@Override
+	public void delete(Object object) {
+		fornecedorBusiness.delete(object);
+	}
+
+	@Override
 	protected List<Fornecedor> carregarRegistrosParaExibicao(int pageIndex,
 			int pageSize) {
 		return fornecedorBusiness.find(pageIndex, pageSize);

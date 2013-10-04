@@ -4,22 +4,23 @@ import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named("fornecedorFormAction")
-@Stateless
+@RequestScoped
 public class FornecedorFormAction implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Inject
 	private Fornecedor instance;
 
 	@EJB
 	private FornecedorBusiness fornecedorBusiness;
 
 	public FornecedorFormAction() {
-		instance = new Fornecedor();
 	}
 
 	public String edit() {

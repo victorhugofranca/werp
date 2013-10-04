@@ -16,41 +16,111 @@
 				listener="#{orcamentoFormAction.beginConversation}" />
 		</f:metadata>
 
-		<p:panelGrid columns="2">
+		<p:panelGrid columns="2" style="width : 100%">
 			<h:form id="orcamentoForm">
 
-				<p:panelGrid id="panelGridId" columns="1">
-					<p:panelGrid id="panelGridMaster" columns="2">
+				<p:panelGrid id="panelGridId" columns="1" style="width : 100%">
+					<p:panelGrid id="panelGridMaster" columns="2" style="width : 100%">
 						<p:outputLabel id="orcamentoCodigoId" value="Código" />
 						<p:inputText id="inputCodigoOrcamentoId"
 							value="#{orcamentoFormAction.instance.codigo}" />
+
+						<p:outputLabel id="orcamentoDataId" value="Data" />
+						<p:inputText id="inputDataOrcamentoId" readonly="true"
+							value="#{orcamentoFormAction.instance.data}" />
+
+						<p:outputLabel id="orcamentoVendedorId" value="Vendedor" />
+						<p:panelGrid id="panelGridVendedor" columns="3"
+							style="width : 100%">
+							<p:inputText id="inputCodigoVendedorId"
+								value="#{orcamentoFormAction.instance.vendedor.nome}"
+								readonly="true" style="width : 100%" />
+							<p:commandButton value="Pesquisar Vendedor" id="searchVendedorId"
+								actionListener="#{vendedorSelectDialogAction.pesquisar}">
+								<p:ajax event="dialogReturn"
+									listener="#{orcamentoFormAction.onVendedorChosen}"
+									update="inputCodigoVendedorId" />
+							</p:commandButton>
+						</p:panelGrid>
+
+						<p:outputLabel id="orcamentoClienteId" value="Cliente" />
+						<p:panelGrid id="panelGridCliente" columns="3"
+							style="width : 100%">
+							<p:inputText id="inputCodigoClienteId"
+								value="#{orcamentoFormAction.instance.cliente.razaoSocial}"
+								readonly="true" style="width : 100%" />
+							<p:commandButton value="Pesquisar Cliente" id="searchClienteId"
+								actionListener="#{clienteSelectDialogAction.pesquisar}">
+								<p:ajax event="dialogReturn"
+									listener="#{orcamentoFormAction.onClientChosen}"
+									update="inputCodigoClienteId" />
+							</p:commandButton>
+						</p:panelGrid>
+
+						<p:outputLabel id="orcamentoTotalId" value="Total Pedido" />
+						<p:inputText id="inputTotalOrcamentoId" readonly="true"
+							value="#{orcamentoFormAction.instance.total}" />
+
 					</p:panelGrid>
 
-					<p:panelGrid id="panelGridDetailForm" columns="2">
+					<p:panelGrid id="panelGridDetailButtonsForm" columns="4"
+						style="width : 100%">
+
 						<p:outputLabel id="produtoCodigoId" value="Produto" />
 						<p:inputText id="inputCodigoProdutoId"
-							value="#{orcamentoFormAction.codigoProduto}" />
-					</p:panelGrid>
+							value="#{orcamentoFormAction.produtoTemp.codigo}" />
 
-					<p:panelGrid id="panelGridDetailButtonsForm" columns="2">
+						<p:outputLabel id="produtoPrecoId" value="Preço" />
+						<p:inputText id="inputPrecoProdutoId"
+							value="#{orcamentoFormAction.precoItemTemp}" />
+
+						<p:outputLabel id="produtoQtdId" value="Quantidade" />
+						<p:inputText id="inputQtdProdutoId"
+							value="#{orcamentoFormAction.qtdItemTemp}" />
+
 						<p:commandButton value="Pesquisar Produto" id="searchProductId"
-							actionListener="#{produtoSelectDialogAction.pesquisarProdutos}">
+							actionListener="#{produtoSelectDialogAction.pesquisar}">
 							<p:ajax event="dialogReturn"
 								listener="#{orcamentoFormAction.onProductChosen}"
-								update="inputCodigoProdutoId" />
+								update="inputCodigoProdutoId, inputPrecoProdutoId, inputQtdProdutoId" />
 						</p:commandButton>
 
 						<p:commandButton value="Add" id="commandButtonAddItemId"
-							update="itensDataTableId"
+							update="itensDataTableId, inputTotalOrcamentoId"
 							actionListener="#{orcamentoFormAction.addItem()}" />
 					</p:panelGrid>
 
-					<p:panelGrid id="panelGridDetailTable" columns="1">
+					<p:panelGrid id="panelGridDetailTable" columns="1"
+						style="width : 100%">
 						<p:dataTable id="itensDataTableId" var="item"
-							value="#{orcamentoFormAction.itens}">
-							<p:column headerText="Id">
-								<h:outputText value="#{item.idOrcamentoItem}" />
+							value="#{orcamentoFormAction.instance.orcamentoItens}">
+
+							<p:column>
+								<p:commandButton icon="ui-icon-circle-minus"
+									action="#{orcamentoFormAction.deleteItem(item)}"
+									update="itensDataTableId" />
 							</p:column>
+
+							<p:column headerText="Código">
+								<h:outputText value="#{item.produto.codigo}" />
+							</p:column>
+
+							<p:column headerText="Descrição">
+								<h:outputText value="#{item.produto.descricao}" />
+							</p:column>
+
+							<p:column headerText="Quantidade">
+								<h:outputText value="#{item.quantidade}" />
+							</p:column>
+
+							<p:column headerText="Preço">
+								<h:outputText value="#{item.preco}" />
+							</p:column>
+
+							<p:column headerText="Total">
+								<h:outputText value="#{item.total}" />
+							</p:column>
+
 						</p:dataTable>
 					</p:panelGrid>
 

@@ -19,6 +19,11 @@ public class PedidoVendaListAction extends AbstractListAction<PedidoVenda> {
 	@EJB
 	private PedidoVendaBusiness pedidoBusiness;
 
+	@Override
+	public void delete(Object object) {
+		pedidoBusiness.delete(object);
+	}
+
 	public void faturar(PedidoVenda pedidoVenda) {
 		pedidoBusiness.faturar(pedidoVenda);
 	}

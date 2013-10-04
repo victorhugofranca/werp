@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Clientes</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="listForm">
+
+		<p:dataTable id="clientesDataTableId" var="cliente"
+			value="#{clienteListAction.instances}" paginatorPosition="bottom"
+			paginator="true" rows="10" lazy="true">
+
+			<p:columns value="#{clienteListAction.columns}" var="column"
+				columnIndexVar="colIndex">
+				<f:facet name="header">  
+                		#{column.header}  
+            		</f:facet>
+
+				<p:commandLink id="selectLinkId"
+					actionListener="#{clienteSelectDialogAction.select(cliente)}">
+					<p:outputLabel value="#{cliente[column.property]}" />
+				</p:commandLink>
+
+			</p:columns>
+
+		</p:dataTable>
+	</h:form>
+</h:body>
+
+</html>

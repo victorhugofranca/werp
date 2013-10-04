@@ -23,6 +23,12 @@
 				value="#{produtoListAction.instances}" paginatorPosition="bottom"
 				paginator="true" rows="10" lazy="true">
 
+				<p:column>
+					<p:commandButton icon="ui-icon-circle-minus"
+						action="#{produtoListAction.delete(produto)}"
+						update="produtosDataTableId" />
+				</p:column>
+
 				<p:columns value="#{produtoListAction.columns}" var="column"
 					columnIndexVar="colIndex">
 					<f:facet name="header">  

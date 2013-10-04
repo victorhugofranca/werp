@@ -7,6 +7,7 @@ import javax.interceptor.Interceptors;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import br.com.sigen.werp.app.MathOp;
 import br.com.sigen.werp.app.crosscutting.BroadcastInterceptor;
 import br.com.sigen.werp.app.crosscutting.SecurityInterceptor;
 
@@ -25,12 +26,33 @@ public class OrcamentoBusiness {
 		}
 	}
 
+	@Interceptors({ SecurityInterceptor.class, BroadcastInterceptor.class })
+	public void delete(Object entity) {
+		entity = entityManager.merge(entity);
+		entityManager.remove(entity);
+	}
+
 	public List<Orcamento> find(Integer pageIndex, Integer pageSize) {
 		return entityManager
 				.createQuery(
 						"select orcamento from Orcamento orcamento order by orcamento.codigo",
 						Orcamento.class).setFirstResult(pageIndex)
 				.setMaxResults(pageSize).getResultList();
+	}
+
+	@Interceptors({ SecurityInterceptor.class, BroadcastInterceptor.class })
+	public void addItem(Orcamento orcamento, OrcamentoItem orcamentoItem) {
+		orcamento.setTotal(MathOp.sum(orcamento.getTotal(),
+				orcamentoItem.getTotal()));
+
+		orcamento.getOrcamentoItens().add(orcamentoItem);
+	}
+
+	@Interceptors({ SecurityInterceptor.class, BroadcastInterceptor.class })
+	public void removeItem(Orcamento orcamento, OrcamentoItem orcamentoItem) {
+		orcamento.setTotal(MathOp.subtract(orcamento.getTotal(),
+				orcamentoItem.getTotal()));
+		orcamento.getOrcamentoItens().remove(orcamentoItem);
 	}
 
 	public Integer count() {

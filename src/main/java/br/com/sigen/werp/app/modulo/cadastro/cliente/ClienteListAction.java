@@ -20,6 +20,11 @@ public class ClienteListAction extends AbstractListAction<Cliente> {
 	private ClienteBusiness clienteBusiness;
 
 	@Override
+	public void delete(Object object) {
+		clienteBusiness.delete(object);
+	}
+
+	@Override
 	protected List<Cliente> carregarRegistrosParaExibicao(int pageIndex,
 			int pageSize) {
 		return clienteBusiness.find(pageIndex, pageSize);

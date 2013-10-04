@@ -6,10 +6,10 @@ public abstract class TarefaFaturamento {
 
 	protected TarefaFaturamento next;
 
-	abstract protected void execute();
+	abstract protected void execute(PedidoVenda pedidoVenda);
 
 	public void handleRequest(PedidoVenda pedidoVenda) {
-		execute();
+		execute(pedidoVenda);
 		if (this.next != null)
 			next.handleRequest(pedidoVenda);
 	}

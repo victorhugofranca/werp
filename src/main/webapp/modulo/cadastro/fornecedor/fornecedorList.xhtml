@@ -23,13 +23,17 @@
 				value="#{fornecedorListAction.instances}" paginatorPosition="bottom"
 				paginator="true" rows="10" lazy="true">
 
+				<p:column>
+					<p:commandButton icon="ui-icon-circle-minus"
+						action="#{fornecedorListAction.delete(fornecedor)}"
+						update="fornecedorsDataTableId" />
+				</p:column>
+
 				<p:columns value="#{fornecedorListAction.columns}" var="column"
 					columnIndexVar="colIndex">
 					<f:facet name="header">  
                 		#{column.header}  
             		</f:facet>
-
-					<p:outputLabel />
 
 					<p:commandLink action="fornecedorForm" id="editCommandButtonId"
 						value="#{fornecedor[column.property]}"

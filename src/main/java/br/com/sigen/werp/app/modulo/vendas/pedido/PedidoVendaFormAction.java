@@ -28,6 +28,7 @@ public class PedidoVendaFormAction implements Serializable {
 	@Inject
 	private Conversation conversation;
 
+	@Inject
 	private PedidoVenda instance;
 
 	private List<PedidoVendaItem> itens;
@@ -35,7 +36,6 @@ public class PedidoVendaFormAction implements Serializable {
 	private String codigoProduto;
 
 	public PedidoVendaFormAction() {
-		instance = new PedidoVenda();
 	}
 
 	@PostConstruct

@@ -20,6 +20,11 @@ public class OrcamentoListAction extends AbstractListAction<Orcamento> {
 	private OrcamentoBusiness orcamentoBusiness;
 
 	@Override
+	public void delete(Object object) {
+		orcamentoBusiness.delete(object);
+	}
+
+	@Override
 	protected List<Orcamento> carregarRegistrosParaExibicao(int pageIndex,
 			int pageSize) {
 		return orcamentoBusiness.find(pageIndex, pageSize);
@@ -28,6 +33,8 @@ public class OrcamentoListAction extends AbstractListAction<Orcamento> {
 	protected Map<String, String> getColumnsMap() {
 		Map<String, String> columnsMap = new LinkedHashMap<String, String>();
 		columnsMap.put("codigo", "Código");
+		columnsMap.put("data", "Data");
+		columnsMap.put("total", "Valor");
 		return columnsMap;
 	}
 

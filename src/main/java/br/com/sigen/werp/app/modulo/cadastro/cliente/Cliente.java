@@ -41,6 +41,10 @@ public class Cliente implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private SimNao ativo;
 
+	public Cliente() {
+		ativo = SimNao.S;
+	}
+
 	public Integer getIdCliente() {
 		return idCliente;
 	}

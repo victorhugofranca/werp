@@ -23,6 +23,12 @@
 				value="#{tituloReceberListAction.instances}"
 				paginatorPosition="bottom" paginator="true" rows="10" lazy="true">
 
+				<p:column>
+					<p:commandButton icon="ui-icon-circle-minus"
+						action="#{tituloReceberListAction.delete(titulo)}"
+						update="titulosDataTableId" />
+				</p:column>
+
 				<p:columns value="#{tituloReceberListAction.columns}" var="column"
 					columnIndexVar="colIndex">
 					<f:facet name="header">  

@@ -65,13 +65,6 @@ public abstract class AbstractListAction<T> implements Serializable {
 
 	}
 
-	protected Logger getLogger(Class<?> clazz) {
-		if (clazz == null) {
-			throw new IllegalArgumentException("Class for logger is required.");
-		}
-		return Logger.getLogger(clazz.getName());
-	}
-
 	public LazyDataModel<T> getInstances() {
 		return instances;
 	}
@@ -80,9 +73,19 @@ public abstract class AbstractListAction<T> implements Serializable {
 		this.instances = instances;
 	}
 
+	protected Logger getLogger(Class<?> clazz) {
+		if (clazz == null) {
+			throw new IllegalArgumentException("Class for logger is required.");
+		}
+		return Logger.getLogger(clazz.getName());
+	}
+
+	public abstract void delete(Object object);
+
 	protected abstract int getTotalRegistros();
 
-	protected abstract List<T> carregarRegistrosParaExibicao(int pageIndex, int pageSize);
+	protected abstract List<T> carregarRegistrosParaExibicao(int pageIndex,
+			int pageSize);
 
 	protected abstract Map<String, String> getColumnsMap();
 

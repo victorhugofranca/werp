@@ -22,14 +22,13 @@
                 		#{column.header}  
             		</f:facet>
 
-				<p:outputLabel value="#{produto[column.property]}" />
+
+				<p:commandLink id="selectLinkId"
+					actionListener="#{produtoSelectDialogAction.select(produto)}">
+					<p:outputLabel value="#{produto[column.property]}" />
+				</p:commandLink>
 
 			</p:columns>
-
-			<p:column>
-				<p:commandButton icon="ui-icon-search"
-					actionListener="#{produtoSelectDialogAction.selectProductFromDialog(produto)}" />
-			</p:column>
 
 		</p:dataTable>
 	</h:form>

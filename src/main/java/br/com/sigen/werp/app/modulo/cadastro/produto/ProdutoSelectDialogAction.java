@@ -19,7 +19,7 @@ public class ProdutoSelectDialogAction implements Serializable {
 	public ProdutoSelectDialogAction() {
 	}
 
-	public void pesquisarProdutos() {
+	public void pesquisar() {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("modal", true);
 		options.put("draggable", false);
@@ -29,7 +29,7 @@ public class ProdutoSelectDialogAction implements Serializable {
 				"/modulo/cadastro/produto/produtoSelectDialog", options, null);
 	}
 
-	public void selectProductFromDialog(Produto produto) {
+	public void select(Produto produto) {
 		RequestContext.getCurrentInstance().closeDialog(produto);
 	}
 

@@ -27,6 +27,9 @@
 					<p:commandButton value="Faturar" icon="ui-icon-document"
 						action="#{pedidoListAction.faturar(pedido)}"
 						update="pedidosDataTableId" />
+					<p:commandButton icon="ui-icon-circle-minus"
+						action="#{pedidoListAction.delete(pedido)}"
+						update="pedidosDataTableId" />
 				</p:column>
 
 				<p:columns value="#{pedidoListAction.columns}" var="column"

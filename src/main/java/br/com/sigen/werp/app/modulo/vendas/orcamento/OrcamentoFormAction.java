@@ -1,11 +1,10 @@
 package br.com.sigen.werp.app.modulo.vendas.orcamento;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
@@ -14,7 +13,10 @@ import javax.inject.Named;
 
 import org.primefaces.event.SelectEvent;
 
+import br.com.sigen.werp.app.MathOp;
+import br.com.sigen.werp.app.modulo.cadastro.cliente.Cliente;
 import br.com.sigen.werp.app.modulo.cadastro.produto.Produto;
+import br.com.sigen.werp.app.modulo.cadastro.vendedor.Vendedor;
 
 @Named("orcamentoFormAction")
 @ConversationScoped
@@ -28,19 +30,17 @@ public class OrcamentoFormAction implements Serializable {
 	@Inject
 	private Conversation conversation;
 
+	@Inject
 	private Orcamento instance;
 
-	private List<OrcamentoItem> itens;
+	@Inject
+	private Produto produtoTemp;
+	private BigDecimal precoItemTemp;
+	private BigDecimal qtdItemTemp;
 
-	private String codigoProduto;
+	private List<OrcamentoItem> selectedItens;
 
 	public OrcamentoFormAction() {
-		instance = new Orcamento();
-	}
-
-	@PostConstruct
-	public void init() {
-		itens = new ArrayList<OrcamentoItem>();
 	}
 
 	public void beginConversation() {
@@ -62,14 +62,38 @@ public class OrcamentoFormAction implements Serializable {
 	}
 
 	public void addItem() {
-		OrcamentoItem orcamentoItem = new OrcamentoItem();
-		orcamentoItem.setIdOrcamentoItem(Integer.valueOf(codigoProduto));
-		itens.add(orcamentoItem);
+		OrcamentoItem orcamentoItem = buildNewOrcamentoItem();
+		orcamentoBusiness.addItem(getInstance(), orcamentoItem);
+	}
+
+	public void deleteItem(OrcamentoItem orcamentoItem) {
+		orcamentoBusiness.removeItem(getInstance(), orcamentoItem);
 	}
 
 	public void onProductChosen(SelectEvent event) {
 		Produto produto = (Produto) event.getObject();
-		setCodigoProduto(produto.getCodigo());
+		setPrecoItemTemp(produto.getPreco());
+		setProdutoTemp(produto);
+	}
+
+	public void onClientChosen(SelectEvent event) {
+		Cliente cliente = (Cliente) event.getObject();
+		instance.setCliente(cliente);
+	}
+
+	public void onVendedorChosen(SelectEvent event) {
+		Vendedor vendedor = (Vendedor) event.getObject();
+		instance.setVendedor(vendedor);
+	}
+
+	private OrcamentoItem buildNewOrcamentoItem() {
+		OrcamentoItem orcamentoItem = new OrcamentoItem();
+		orcamentoItem.setProduto(produtoTemp);
+		orcamentoItem.setPreco(precoItemTemp);
+		orcamentoItem.setQuantidade(qtdItemTemp);
+		orcamentoItem.setTotal(MathOp.multiply(precoItemTemp, qtdItemTemp));
+		orcamentoItem.setOrcamento(getInstance());
+		return orcamentoItem;
 	}
 
 	protected Logger getLogger(Class<?> clazz) {
@@ -87,20 +111,35 @@ public class OrcamentoFormAction implements Serializable {
 		this.instance = instance;
 	}
 
-	public List<OrcamentoItem> getItens() {
-		return itens;
+	public Produto getProdutoTemp() {
+		return produtoTemp;
 	}
 
-	public void setItens(List<OrcamentoItem> itens) {
-		this.itens = itens;
+	public void setProdutoTemp(Produto produtoTemp) {
+		this.produtoTemp = produtoTemp;
 	}
 
-	public String getCodigoProduto() {
-		return codigoProduto;
+	public BigDecimal getPrecoItemTemp() {
+		return precoItemTemp;
 	}
 
-	public void setCodigoProduto(String codigoProduto) {
-		this.codigoProduto = codigoProduto;
+	public void setPrecoItemTemp(BigDecimal precoItemTemp) {
+		this.precoItemTemp = precoItemTemp;
 	}
 
+	public BigDecimal getQtdItemTemp() {
+		return qtdItemTemp;
+	}
+
+	public void setQtdItemTemp(BigDecimal qtdItemTemp) {
+		this.qtdItemTemp = qtdItemTemp;
+	}
+
+	public List<OrcamentoItem> getSelectedItens() {
+		return selectedItens;
+	}
+
+	public void setSelectedItens(List<OrcamentoItem> selectedItens) {
+		this.selectedItens = selectedItens;
+	}
 }
