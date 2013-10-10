@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 
 import org.primefaces.context.RequestContext;
@@ -19,7 +20,7 @@ public class VendedorSelectDialogAction implements Serializable {
 	public VendedorSelectDialogAction() {
 	}
 
-	public void pesquisar() {
+	public void pesquisar(ActionEvent event) {
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put("modal", true);
 		options.put("draggable", false);

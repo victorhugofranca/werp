@@ -76,7 +76,7 @@ public class OrcamentoFormAction implements Serializable {
 		setProdutoTemp(produto);
 	}
 
-	public void onClientChosen(SelectEvent event) {
+	public void onClienteChosen(SelectEvent event) {
 		Cliente cliente = (Cliente) event.getObject();
 		instance.setCliente(cliente);
 	}

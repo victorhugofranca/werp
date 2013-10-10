@@ -9,6 +9,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/formTemplate.xhtml">
 
+	<ui:define name="title">Cadastro de Produto</ui:define>
+
 	<ui:define name="body">
 
 		<f:metadata>
@@ -38,7 +40,7 @@
 				<p:panelGrid columns="2">
 					<p:inputText id="inputCodigoFabricanteId" readonly="true"
 						value="#{produtoFormAction.instance.fabricante.codigo}" />
-					<p:commandButton value="Pesquisar Fabricante"
+					<p:commandButton icon="ui-icon-search"
 						id="searchFabricanteId"
 						actionListener="#{fabricanteSelectDialogAction.pesquisar}">
 						<p:ajax event="dialogReturn"
@@ -51,7 +53,7 @@
 				<p:panelGrid columns="2">
 					<p:inputText id="inputCodigoGrupoProdutoId" readonly="true"
 						value="#{produtoFormAction.instance.grupoProduto.codigo}" />
-					<p:commandButton value="Pesquisar Grupo de Produto"
+					<p:commandButton icon="ui-icon-search"
 						id="searchGrupoProdutoId"
 						actionListener="#{grupoProdutoSelectDialogAction.pesquisar}">
 						<p:ajax event="dialogReturn"

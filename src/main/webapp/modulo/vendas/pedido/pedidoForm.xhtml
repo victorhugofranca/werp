@@ -9,6 +9,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/templates/formTemplate.xhtml">
 
+	<ui:define name="title">Pedido de Venda</ui:define>
+
 	<ui:define name="body">
 
 		<f:metadata>
@@ -33,7 +35,7 @@
 					</p:panelGrid>
 
 					<p:panelGrid id="panelGridDetailButtonsForm" columns="2">
-						<p:commandButton value="Pesquisar Produto" id="searchProductId"
+						<p:commandButton icon="ui-icon-search" id="searchProductId"
 							actionListener="#{produtoSelectDialogAction.pesquisarProdutos}">
 							<p:ajax event="dialogReturn"
 								listener="#{pedidoFormAction.onProductChosen}"

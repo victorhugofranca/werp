@@ -7,35 +7,63 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<script>
+		var websocket;
+
+		if (websocket == null)
+			websocket = new WebSocket("ws://" + document.location.host
+					+ "/werp-app/websocket");
+		else
+			atualizarPainelAcoes();
+
+		function atualizarPainelAcoes() {
+			websocket.send('atualizar');
+		}
+
+		websocket.onmessage = function(evt) {
+			var p = document.createElement("p");
+			p.innerHTML = evt.data;
+			var container = document.getElementById("container");
+			container.appendChild(p);
+		}
+	</script>
 </h:head>
 
 <h:body
 	style="background-image: url(#{request.contextPath}/resources/images/macback.png) !important">
+
 	<h:outputStylesheet name="css/default.css" />
 
 	<div>
+		<p:layout id="mainLayoutId" fullPage="true">
 
- 		<ui:include src="header.xhtml" />
+			<p:layoutUnit position="north">
+				<ui:include src="menu.xhtml" />
+			</p:layoutUnit>
 
-		<ui:include src="menu.xhtml" />
-
-		<p:layout id="mainLayoutId">
 			<p:layoutUnit position="west" size="200" header="Suas ações recentes"
 				collapsible="true">
-				<div id="container"></div>
 			</p:layoutUnit>
 
 			<p:layoutUnit position="center">
-				<ui:insert name="body" />
+				<p:dashboard id="board" model="#{dashboardBean.model}">
+					<p:panel id="clientesId" header="Novos Clientes">
+						<div id="container"></div>
+					</p:panel>
+
+					<p:panel id="orcamentosId" header="Novos Orçamentos">
+					</p:panel>
+
+					<p:panel id="pedidosId" header="Novos Pedidos de Venda">
+					</p:panel>
+				</p:dashboard>
 			</p:layoutUnit>
 
-			<p:layoutUnit position="east" size="200" header="Ações recentes"
-				collapsible="true">
-				<div id="container"></div>
-			</p:layoutUnit>
 		</p:layout>
 
 	</div>
 
 </h:body>
+
 </html>
