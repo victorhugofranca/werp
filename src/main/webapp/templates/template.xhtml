@@ -8,6 +8,8 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+	<h:outputStylesheet name="css/introjs.css" />
+
 	<script>
 		var websocket;
 
@@ -24,45 +26,166 @@
 		websocket.onmessage = function(evt) {
 			var p = document.createElement("p");
 			p.innerHTML = evt.data;
-			var container = document.getElementById("container");
+			var container = document.getElementById("produtosPanelDiv");
 			container.appendChild(p);
 		}
 	</script>
 </h:head>
 
 <h:body
-	style="background-image: url(#{request.contextPath}/resources/images/macback.png) !important">
+	style="background-image: url(#{request.contextPath}/resources/images/macback.png) !important"
+	onload="startIntro();">
 
 	<h:outputStylesheet name="css/default.css" />
 
-	<div>
-		<p:layout id="mainLayoutId" fullPage="true">
+	<p:panel>
+		<p:layout fullPage="true">
 
-			<p:layoutUnit position="north">
+			<p:layoutUnit id="layoutUnitMenu" position="north">
 				<ui:include src="menu.xhtml" />
 			</p:layoutUnit>
 
-			<p:layoutUnit position="west" size="200" header="Suas ações recentes"
-				collapsible="true">
+			<p:layoutUnit id="layoutUnitUltimasAcoes" position="west" size="200"
+				header="Suas ações recentes" collapsible="true">
+				<div id="ultimasAcoesDiv">
+					<h5>Ação 1</h5>
+					<h5>Ação 1</h5>
+					<h5>Ação 1</h5>
+					<h5>Ação 1</h5>
+					<h5>Ação 1</h5>
+				</div>
 			</p:layoutUnit>
 
-			<p:layoutUnit position="center">
+			<p:layoutUnit id="layoutUnitDashBoard" position="center">
 				<p:dashboard id="board" model="#{dashboardBean.model}">
-					<p:panel id="clientesId" header="Novos Clientes">
-						<div id="container"></div>
+
+					<p:panel id="produtosId" header="Produtos">
+						<div id="produtosPanelDiv">
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+						</div>
 					</p:panel>
 
-					<p:panel id="orcamentosId" header="Novos Orçamentos">
+					<p:panel id="pedidosVendaId" header="Pedidos de Venda">
+						<div id="pedidosVendaPanelDiv">
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+						</div>
 					</p:panel>
 
-					<p:panel id="pedidosId" header="Novos Pedidos de Venda">
+					<p:panel id="pedidosCompraId" header="Pedidos de Compra">
+						<div id="pedidosCompraPanelDiv">
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+						</div>
 					</p:panel>
+
+					<p:panel id="entradasMercadoriasId" header="Entradas de Mercadoria">
+						<div id="entradasMercadoriasPanelDiv">
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+							<h5>Ação 1</h5>
+						</div>
+					</p:panel>
+
 				</p:dashboard>
 			</p:layoutUnit>
 
-		</p:layout>
+			<p:layoutUnit id="layoutUnitWebSiteMenu" position="east" size="200">
+				<img id="menuWebSite1"
+					src="#{request.contextPath}/resources/images/Box-icon.png" />
+					Live Demo
+					<p />
+				<img id="menuWebSite1"
+					src="#{request.contextPath}/resources/images/Clients-icon.png" />
+					Comece a usar
+					<p />
+				<img id="menuWebSite1"
+					src="#{request.contextPath}/resources/images/Box-icon.png" />
+					Planos
+					<p />
+				<img id="menuWebSite1"
+					src="#{request.contextPath}/resources/images/Clients-icon.png" />
+					Tutoriais e Vídeos
+					<p />
+				<img id="menuWebSite1"
+					src="#{request.contextPath}/resources/images/Box-icon.png" />
+					Suporte
+			</p:layoutUnit>
 
-	</div>
+			<p:layoutUnit id="layoutUnitRodape" position="south">
+				<p:outputLabel>© Direitos Reservados.</p:outputLabel>
+			</p:layoutUnit>
+		</p:layout>
+	</p:panel>
+
+	<script type="text/javascript"
+		src="#{request.contextPath}/resources/js/intro.js"></script>
+	<script type="text/javascript">
+		function startIntro() {
+			var intro = introJs();
+			intro
+					.setOptions({
+						steps : [
+								{
+									element : document
+											.querySelector('#layoutUnitMenu'),
+									intro : "Este é o BLA, Sistema de Gestão Comercial on-line. Gostaria de apresentá-lo a você agora mesmo. Basta clicar no botão <b>Próximo</b> aqui embaixo.",
+									position : "bottom"
+								},
+								{
+									element : document
+											.querySelector('#layoutUnitUltimasAcoes'),
+									intro : "This is a tooltip.",
+									position : "right"
+								},
+								{
+									element : document
+											.querySelector('#layoutUnitDashBoard'),
+									intro : "This is a tooltip.",
+									position : "top"
+								},
+								{
+									element : document
+											.querySelector('#produtosId'),
+									intro : "This is a tooltip.",
+									position : "bottom"
+								},
+								{
+									element : document
+											.querySelector('#pedidosVendaId'),
+									intro : "This is a tooltip.",
+									position : "bottom"
+								},
+								{
+									element : document
+											.querySelector('#pedidosCompraId'),
+									intro : "This is a tooltip.",
+									position : "bottom"
+								},
+								{
+									element : document
+											.querySelector('#entradasMercadoriasId'),
+									intro : "This is a tooltip.",
+									position : "bottom"
+								} ]
+					});
+
+			intro.start();
+		}
+	</script>
 
 </h:body>
 
